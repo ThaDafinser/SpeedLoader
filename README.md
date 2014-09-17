@@ -15,11 +15,13 @@ Some techniques:
 What is missing?
 - a self learning solution
   - autodetect enviroment based best solution
+    - what caches are available?
   - dynamic start / end point for class collection
     - a generic class collection: e.g. until the end of bootstrap
     - a class collection for a specific MVC action or URL?
     - events and/or self defined
 - combine best practices from all projects
+- easy switch between development/production mode
 
 ## First steps
 - get different test projects for time measurement
