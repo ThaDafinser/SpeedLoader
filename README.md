@@ -1,5 +1,5 @@
-# SpeedLoader - IDEA!
-Load PHP classes faster...
+# SpeedLoader - idea collection...!
+Load PHP classes faster...some thoughts from my mind
 
 ## What is the idea?
 There are a lot of optimizations already around for autoloading.
@@ -13,11 +13,12 @@ Some techniques:
   - very fast!
 
 What is missing?
-- a self learning solution?!
+- a self learning solution
   - autodetect enviroment based best solution
-  - start / end point for class collection
+  - dynamic start / end point for class collection
     - a generic class collection: e.g. until the end of bootstrap
     - a class collection for a specific MVC action or URL?
+    - events and/or self defined
 - combine best practices from all projects
 
 ## First steps
