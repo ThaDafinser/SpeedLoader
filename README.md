@@ -27,6 +27,11 @@ What is missing?
 - run with different autoloading techniques
 - check results...
 
+
+## Other minds
+- use this so usage is easy: https://getcomposer.org/doc/04-schema.md#files
+- composer only?
+
 ## References
 https://github.com/EvanDotPro/EdpSuperluminal
 https://github.com/symfony/symfony/tree/master/src/Symfony/Component/ClassLoader
