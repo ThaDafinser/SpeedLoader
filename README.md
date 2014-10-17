@@ -4,7 +4,7 @@ Load PHP classes faster...some thoughts from my mind
 ## What is the idea?
 There are a lot of optimizations already around for autoloading.
 
-Some techniques:
+### Some techniques
 - autoload classmap
   - classname is an array key, so no string operation
   - put into a file / memory / ...
@@ -12,7 +12,7 @@ Some techniques:
   - only one "autoload" process for multiple files
   - very fast!
 
-Ideas:
+###Ideas
 - a self learning solution
   - autodetect enviroment based best solution
     - what caches are available?
@@ -24,6 +24,11 @@ Ideas:
 - combine best practices from all projects
 - easy switch between development/production mode
 - php extension for even more performance?
+- create class groups into a file
+  - e.g the root class extends an interface, abstract class and uses different Exceptions -> combine it into one file?
+
+### Good to know
+- it depends how the classes are concated, if the __DIR__ or __FILE__ constant is converted to the absolute path
 
 ## First steps
 - get different test projects for time measurement
