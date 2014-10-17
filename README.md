@@ -20,6 +20,7 @@ Ideas:
     - a generic class collection: e.g. until the end of bootstrap
     - a class collection for a specific MVC action or URL?
     - events and/or self defined
+- different preload classfiles per REQUEST?
 - combine best practices from all projects
 - easy switch between development/production mode
 
