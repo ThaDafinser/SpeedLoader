@@ -2,7 +2,10 @@
 Load PHP classes faster...some thoughts from my mind
 
 ## What is the idea?
-There are a lot of optimizations already around for autoloading.
+Since the required amount of loaded classes gets larger and larger, the autoloading part takes more and more time...
+Currently there are a lot of optimizations already around for autoloading. See https://github.com/ThaDafinser/SpeedLoader#references
+
+But there is still a lack for an composer integrated autoloader, which optimize regardless of the chosen frameworks / dependencies...and i think the autoload classmap cant be the last step of optimization taken at the "low level"
 
 ### Some techniques
 - autoload classmap
