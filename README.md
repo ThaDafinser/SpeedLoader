@@ -16,27 +16,25 @@ But there is still a lack for an composer integrated autoloader, which optimize 
   - very fast!
 
 ### Ideas
-- a self learning solution
-  - autodetect enviroment based best solution
-    - what caches are available?
-  - dynamic start / end point for class collection
-    - a generic class collection: e.g. until the end of bootstrap
-    - a class collection for a specific MVC action or URL?
-    - events and/or self defined
-- different preload classfiles route/request based
-- combine best practices from all projects
+- autoload the autoloader automatically: https://getcomposer.org/doc/04-schema.md#files
+- combine best practices from the different techniques
 - easy switch between development/production mode
-- php extension for even more performance?
-- create class groups into a file
-  - e.g the root class extends an interface, abstract class and uses different Exceptions -> combine it into one file?
-- register a class, which can be called to create the file and not wait for the end
+- autodetect enviroment based best solution
+  - what caches are available? APC(u), zend memory, ... (fallback always file)
+- register a class instance, which can be called to create the cached file and not wait for the end
   - @see also dynamic start/end point
+  - good e.g. only cache the files, which are loaded on bootstrap process like in ZF2/symfony (regardless of the route/request)
+- create class groups into a file?
+  - e.g the root class extends an interface, abstract class and uses different Exceptions -> combine it into one file?
+- different preload classfiles route/request based
+  - maybe "self-learning"
+- php extension for even more performance?
 
 ### Good to know
 - it depends how the classes are concated, if the __DIR__ or __FILE__ constant is converted to the absolute path
   - reflection vs just include the whole file content
 - the Composer autoloader regenerate his classname, when it updates `ComposerAutoloaderInit039f35c06ae44c024976663d60a39345`
-  - so this could be `cache validator` 
+  - so this could be `cache key` 
   - only include classes from vendor and not the own, so caching is not problematic
 
 ## First steps
@@ -47,7 +45,6 @@ But there is still a lack for an composer integrated autoloader, which optimize 
 
 
 ## Other minds
-- autoload the autoloader automatically: https://getcomposer.org/doc/04-schema.md#files
 - composer only?!
 
 ## References
