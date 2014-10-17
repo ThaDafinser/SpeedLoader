@@ -40,7 +40,7 @@ There are a lot of optimizations already around for autoloading.
 - get different test projects for time measurement
   - small / medium / large
 - run with different autoloading techniques
-- check results...
+- check results...maybe use https://github.com/polyfractal/athletic
 
 
 ## Other minds
