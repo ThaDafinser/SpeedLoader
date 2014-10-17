@@ -23,6 +23,7 @@ Ideas:
 - different preload classfiles route/request based
 - combine best practices from all projects
 - easy switch between development/production mode
+- php extension for even more performance?
 
 ## First steps
 - get different test projects for time measurement
