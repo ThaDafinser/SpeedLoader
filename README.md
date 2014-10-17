@@ -12,7 +12,7 @@ Some techniques:
   - only one "autoload" process for multiple files
   - very fast!
 
-What is missing?
+Ideas:
 - a self learning solution
   - autodetect enviroment based best solution
     - what caches are available?
@@ -31,8 +31,8 @@ What is missing?
 
 
 ## Other minds
-- use this so usage is easy: https://getcomposer.org/doc/04-schema.md#files
-- composer only?
+- autoload the autoloader automatically: https://getcomposer.org/doc/04-schema.md#files
+- composer only?!
 
 ## References
 https://github.com/EvanDotPro/EdpSuperluminal
