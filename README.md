@@ -34,7 +34,7 @@ But there is still a lack for an composer integrated autoloader, which optimize 
 - it depends how the classes are concated, if the __DIR__ or __FILE__ constant is converted to the absolute path
   - reflection vs just include the whole file content
 - the Composer autoloader regenerate his classname, when it updates `ComposerAutoloaderInit039f35c06ae44c024976663d60a39345`
-  - so this could be `cache key` 
+  - so this could be `cache key` other idea: hook into install/update `events`
   - only include classes from vendor and not the own, so caching is not problematic
 
 ## First steps
@@ -43,9 +43,6 @@ But there is still a lack for an composer integrated autoloader, which optimize 
 - run with different autoloading techniques
 - check results...maybe use https://github.com/polyfractal/athletic
 
-
-## Other minds
-- composer only?!
 
 ## References
 
