@@ -31,6 +31,9 @@ There are a lot of optimizations already around for autoloading.
 
 ### Good to know
 - it depends how the classes are concated, if the __DIR__ or __FILE__ constant is converted to the absolute path
+- the Composer autoloader regenerate his classname, when it updates `ComposerAutoloaderInit039f35c06ae44c024976663d60a39345`
+  - so this could be `cache validator` 
+  - only include classes from vendor and not the own, so caching is not problematic
 
 ## First steps
 - get different test projects for time measurement
