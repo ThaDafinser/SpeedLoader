@@ -12,7 +12,7 @@ There are a lot of optimizations already around for autoloading.
   - only one "autoload" process for multiple files
   - very fast!
 
-###Ideas
+### Ideas
 - a self learning solution
   - autodetect enviroment based best solution
     - what caches are available?
@@ -26,6 +26,8 @@ There are a lot of optimizations already around for autoloading.
 - php extension for even more performance?
 - create class groups into a file
   - e.g the root class extends an interface, abstract class and uses different Exceptions -> combine it into one file?
+- register a class, which can be called to create the file and not wait for the end
+  - @see also dynamic start/end point
 
 ### Good to know
 - it depends how the classes are concated, if the __DIR__ or __FILE__ constant is converted to the absolute path
