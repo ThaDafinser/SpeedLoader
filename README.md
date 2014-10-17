@@ -39,5 +39,6 @@ https://github.com/EvanDotPro/EdpSuperluminal
 https://github.com/symfony/symfony/tree/master/src/Symfony/Component/ClassLoader
 https://github.com/symfony/symfony/blob/master/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php
 https://github.com/composer/composer/tree/master/src/Composer/Autoload
+https://github.com/mtdowling/ClassPreloader
 
 
