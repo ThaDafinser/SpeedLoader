@@ -37,6 +37,7 @@ Ideas:
 - composer only?!
 
 ## References
+https://github.com/composer/composer/blob/master/src/Composer/Autoload/ClassMapGenerator.php
 https://github.com/EvanDotPro/EdpSuperluminal
 https://github.com/symfony/symfony/tree/master/src/Symfony/Component/ClassLoader
 https://github.com/symfony/symfony/blob/master/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php
