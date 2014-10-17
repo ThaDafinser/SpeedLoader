@@ -48,6 +48,8 @@ But there is still a lack for an composer integrated autoloader, which optimize 
 - composer only?!
 
 ## References
+
+### Implementations
 https://github.com/composer/composer/blob/master/src/Composer/Autoload/ClassMapGenerator.php
 https://github.com/EvanDotPro/EdpSuperluminal
 https://github.com/symfony/symfony/tree/master/src/Symfony/Component/ClassLoader
@@ -55,4 +57,6 @@ https://github.com/symfony/symfony/blob/master/src/Symfony/Component/ClassLoader
 https://github.com/composer/composer/tree/master/src/Composer/Autoload
 https://github.com/mtdowling/ClassPreloader
 
-
+### Benchmarks
+http://stackoverflow.com/questions/8240726/are-there-performance-downsides-while-using-autoloading-classes-in-php
+https://mwop.net/blog/245-Autoloading-Benchmarks.html
