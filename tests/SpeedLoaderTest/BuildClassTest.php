@@ -223,7 +223,7 @@ use SplPriorityQueue;';
         $buildClass->setClass($classRef);
 
         $result = $this->invokeMethod($buildClass, 'getBody');
-        $this->assertEquals('{ public function test(){ \'' . str_replace('\\', '/', __DIR__) . '/asset/Simple\'; } }' . "\n", $result);
+        $this->assertEquals('{ public function test(){ \'' . str_replace('\\', '/', __DIR__) . 'Asset/Simple\'; } }' . "\n", $result);
     }
 
     public function testGetBodyReplaceFile()
