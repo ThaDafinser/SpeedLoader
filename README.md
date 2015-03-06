@@ -9,6 +9,12 @@ Since autoloading takes more and more time, it has become more important to lowe
 
 No. There are a couple of solutions around, but all of them are having some problems, that's why i "reinvited the wheel".
 
+## Features
+
+- independent (no framework relation)
+- different compression modes
+- save where and how you want (you get the complete cache as a string)
+
 ## Example
 
 ### Generate
@@ -51,10 +57,12 @@ Finding and opening a lot of files on the filesystem is expensive.
 
 [EdpSuperluminal](https://github.com/EvanDotPro/EdpSuperluminal)
 - not maintained
-- ZF2 only
+- only for ZF2
+- only compressed possible
 
 [Symfony](https://github.com/symfony/symfony/blob/master/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php) 
-- only file output supported
+- only output direct to a file
+- no compression possible
 
 [ClassPreloader](https://github.com/mtdowling/ClassPreloader)
 - class hierarchy can be wrong (e.g. a class requires an interface and the interface comes later in the file...but in the meantime autoloader have loaded the interface -> "cannot redeclare error")
