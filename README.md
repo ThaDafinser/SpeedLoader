@@ -1,4 +1,6 @@
 # SpeedLoader - idea collection...!
+[![Build Status](https://travis-ci.org/ThaDafinser/SpeedLoader.svg?branch=master)](https://travis-ci.org/ThaDafinser/SpeedLoader)
+
 Load PHP classes faster...some thoughts from my mind
 
 First build test
