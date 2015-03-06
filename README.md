@@ -1,63 +1,52 @@
-# SpeedLoader - idea collection...!
+# SpeedLoader - load only one file
+
 [![Build Status](https://travis-ci.org/ThaDafinser/SpeedLoader.svg?branch=master)](https://travis-ci.org/ThaDafinser/SpeedLoader)
 
-Load PHP classes faster...some thoughts from my mind
+Since autoloading takes more and more time, it has become more important to lower that time.
+`SpeedLoader` aims to solve that problem easily.
 
-First build test
-11
-## What is the idea?
-Since the required amount of loaded classes gets larger and larger, the autoloading part takes more and more time...
-Currently there are a lot of optimizations already around for autoloading. See https://github.com/ThaDafinser/SpeedLoader#references
+## Is this something new?
 
-But there is still a lack for an composer integrated autoloader, which optimize regardless of the chosen frameworks / dependencies...and i think the autoload classmap cant be the last step of optimization taken at the "low level"
+No. There are a couple of solutions around, but all of them are having some problems, that's why i "reinvited the wheel".
 
-### Some techniques
-- autoload classmap
-  - classname is an array key, so no string operation
-  - put into a file / memory / ...
-- put a class collection into a single file
-  - only one "autoload" process for multiple files
-  - very fast!
+## Example
 
-### Ideas
-- autoload the autoloader automatically: https://getcomposer.org/doc/04-schema.md#files
-- combine best practices from the different techniques
-- easy switch between development/production mode
-- autodetect enviroment based best solution
-  - what caches are available? APC(u), zend memory, ... (fallback always file)
-- register a class instance, which can be called to create the cached file and not wait for the end
-  - @see also dynamic start/end point
-  - good e.g. only cache the files, which are loaded on bootstrap process like in ZF2/symfony (regardless of the route/request)
-- create class groups into a file?
-  - e.g the root class extends an interface, abstract class and uses different Exceptions -> combine it into one file?
-- different preload classfiles route/request based
-  - maybe "self-learning"
-- php extension for even more performance?
+```php
+// composer autoloading
+require 'vendor/autoload.php';
 
-### Good to know
-- it depends how the classes are concated, if the __DIR__ or __FILE__ constant is converted to the absolute path
-  - reflection vs just include the whole file content
-- the Composer autoloader regenerate his classname, when it updates `ComposerAutoloaderInit039f35c06ae44c024976663d60a39345`
-  - so this could be `cache key` other idea: hook into install/update `events`
-  - only include classes from vendor and not the own, so caching is not problematic
+//since composer is always needed, exclude all classes loaded until here
+$classesNoLoad = array_merge(get_declared_interfaces(), get_declared_traits(), get_declared_classes());
 
-## First steps
-- get different test projects for time measurement
-  - small / medium / large
-- run with different autoloading techniques
-- check results...maybe use https://github.com/polyfractal/athletic
+//execute your app...
 
+//now cache
+$classes = array_merge(get_declared_interfaces(), get_declared_traits(), get_declared_classes());
+$classes = array_diff($classes, $classesNoLoad);
 
-## References
+$cache = new SpeedLoader\BuildCache();
+$cache->cache($classes);
 
-### Implementations
-https://github.com/composer/composer/blob/master/src/Composer/Autoload/ClassMapGenerator.php
-https://github.com/EvanDotPro/EdpSuperluminal
-https://github.com/symfony/symfony/tree/master/src/Symfony/Component/ClassLoader
-https://github.com/symfony/symfony/blob/master/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php
-https://github.com/composer/composer/tree/master/src/Composer/Autoload
-https://github.com/mtdowling/ClassPreloader
+file_put_contents('data/cache/classes.php.cache', '<?php ' . "\n" . $cache->getCacheString());
+```
 
-### Benchmarks
+## Why concat classes 
+
+Finding and opening a lot of files on the filesystem is expensive.
+(similar reason why you should combine JS or CSS files...but there its HTTP)
+
+## Alternatives
+
+[EdpSuperluminal](https://github.com/EvanDotPro/EdpSuperluminal)
+- not maintained
+- ZF2 only
+
+[Symfony](https://github.com/symfony/symfony/blob/master/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php) 
+- only file output supported
+
+[ClassPreloader](https://github.com/mtdowling/ClassPreloader)
+- class hierarchy can be wrong (e.g. a class requires an interface and the interface comes later in the file...but in the meantime autoloader have loaded the interface -> "cannot redeclare error")
+
+## Benchmarks
 http://stackoverflow.com/questions/8240726/are-there-performance-downsides-while-using-autoloading-classes-in-php
 https://mwop.net/blog/245-Autoloading-Benchmarks.html
