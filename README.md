@@ -1,6 +1,8 @@
 # SpeedLoader - load only one file
 
 [![Build Status](https://travis-ci.org/ThaDafinser/SpeedLoader.svg?branch=master)](https://travis-ci.org/ThaDafinser/SpeedLoader)
+[![Code Coverage](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/?branch=master)
 
 Since autoloading takes more and more time, it has become more important to lower that time.
 `SpeedLoader` aims to solve that problem easily.
