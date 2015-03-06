@@ -11,6 +11,7 @@ No. There are a couple of solutions around, but all of them are having some prob
 
 ## Example
 
+### Generate
 ```php
 // composer autoloading
 require 'vendor/autoload.php';
@@ -18,16 +19,25 @@ require 'vendor/autoload.php';
 //since composer is always needed, exclude all classes loaded until here
 $classesNoLoad = array_merge(get_declared_interfaces(), get_declared_traits(), get_declared_classes());
 
-//execute your app...
+//execute your app...(only the bootstrap)
+$app = Zend\Mvc\Application::init($appConfig);
 
-//now cache
+//find all loaded files
 $classes = array_merge(get_declared_interfaces(), get_declared_traits(), get_declared_classes());
 $classes = array_diff($classes, $classesNoLoad);
 
+//cache it
 $cache = new SpeedLoader\BuildCache();
 $cache->cache($classes);
 
 file_put_contents('data/cache/classes.php.cache', '<?php ' . "\n" . $cache->getCacheString());
+```
+
+### Include in your application
+```php
+if (file_exists('data/cache/classes.php.cache')) {
+    require_once 'data/cache/classes.php.cache';
+}
 ```
 
 ## Why concat classes 
