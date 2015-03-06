@@ -30,6 +30,10 @@ class BuildClassTest extends PHPUnit_Framework_TestCase
         return $classRef;
     }
 
+    /**
+     * @covers SpeedLoader\BuildClass::setClass
+     * @covers SpeedLoader\BuildClass::getClass
+     */
     public function testSetGetClass()
     {
         $classRef = $this->getMockBuilder('Zend\Code\Reflection\ClassReflection')
@@ -43,6 +47,10 @@ class BuildClassTest extends PHPUnit_Framework_TestCase
         $this->assertSame($classRef, $buildClass->getClass());
     }
 
+    /**
+     * @covers SpeedLoader\BuildClass::setNewLine
+     * @covers SpeedLoader\BuildClass::getNewLine
+     */
     public function testSetGetNewLine()
     {
         $buildClass = new BuildClass();
@@ -53,6 +61,10 @@ class BuildClassTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("\r\n", $buildClass->getNewLine());
     }
 
+    /**
+     * @covers SpeedLoader\BuildClass::setCompressionLevel
+     * @covers SpeedLoader\BuildClass::getCompressionLevel
+     */
     public function testSetGetCompressionLevel()
     {
         $buildClass = new BuildClass();
@@ -63,6 +75,9 @@ class BuildClassTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(BuildClass::COMPRESS_HIGH, $buildClass->getCompressionLevel());
     }
 
+    /**
+     * @covers SpeedLoader\BuildClass::getClassType
+     */
     public function testSetGetClassType()
     {
         /*
@@ -111,6 +126,9 @@ class BuildClassTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('class', $buildClass->getClassType());
     }
 
+    /**
+     * @covers SpeedLoader\BuildClass::getClassDocBlock
+     */
     public function testGetClassDocBlock()
     {
         /*
@@ -140,6 +158,9 @@ class BuildClassTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * @covers SpeedLoader\BuildClass::getUses
+     */
     public function testGetUses()
     {
         /*
@@ -168,6 +189,9 @@ use SplPriorityQueue;';
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * @covers SpeedLoader\BuildClass::getDeclaration
+     */
     public function testGetDeclaration()
     {
         /*
@@ -204,6 +228,9 @@ use SplPriorityQueue;';
         $this->assertEquals('class ClassWithInterface implements \SpeedLoaderTestAsset\Simple\SingleInterface', $result);
     }
 
+    /**
+     * @covers SpeedLoader\BuildClass::getBody
+     */
     public function testGetBody()
     {
         $classRef = new ClassReflection('SpeedLoaderTestAsset\Simple\ClassWithBody');
@@ -215,6 +242,9 @@ use SplPriorityQueue;';
         $this->assertEquals('{ public function test(){} }' . "\n", $result);
     }
 
+    /**
+     * @covers SpeedLoader\BuildClass::getBody
+     */
     public function testGetBodyReplaceDir()
     {
         $classRef = new ClassReflection('SpeedLoaderTestAsset\Simple\ClassWithBodyAndDir');
@@ -226,6 +256,9 @@ use SplPriorityQueue;';
         $this->assertEquals('{ public function test(){ \'' . str_replace('\\', '/', __DIR__) . 'Asset/Simple\'; } }' . "\n", $result);
     }
 
+    /**
+     * @covers SpeedLoader\BuildClass::getBody
+     */
     public function testGetBodyReplaceFile()
     {
         $classRef = new ClassReflection('SpeedLoaderTestAsset\Simple\ClassWithBodyAndFile');

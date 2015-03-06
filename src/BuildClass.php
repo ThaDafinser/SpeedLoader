@@ -2,7 +2,6 @@
 namespace SpeedLoader;
 
 use Zend\Code\Reflection\ClassReflection;
-use Zend\Code\Scanner\FileScanner;
 
 class BuildClass
 {
@@ -60,7 +59,7 @@ class BuildClass
 
     /**
      *
-     * @param boolean $mode
+     * @param integer $lvl
      */
     public function setCompressionLevel($lvl = self::COMPRESS_LOW)
     {
@@ -237,47 +236,29 @@ class BuildClass
 
         if ($class->isInternal() === true) {
             return false;
-            // throw new \Exception('Internal class ' . $class->getName(), 1337);
         }
-
-        // $scanner = new FileScanner($class->getFileName());
-        // if (count($scanner->getClassNames()) !== 1) {
-        // return false;
-        // throw new \Exception('File has more then one class: ' . print_r($scanner->getClassNames(), true));
-        // }
 
         $body     = $this->getBody();
         $docBlock = $class->getDocBlock();
 
-        /**
+        /*
          * Problem related to Doctrine...
          *
          * @see Doctrine\Common\Annotations\AnnotationRegistry::registerFile() @error Doctrine\Common\Annotations\AnnotationException' with message '[Semantical Error] The annotation "@ORM\Entity" in class LispUser\Entity\User was never imported. Did you maybe forget to add a "use" statement for this annotation?
          */
         if (strpos($class->getName(), 'Doctrine') === 0) {
             return false;
-            // throw new \Exception('Doctrine', 1337);
         }
         if (strpos($class->getName(), 'Gedmo') === 0) {
             return false;
-            // throw new \Exception('Gedmo', 1337);
         }
 
         if (is_object($docBlock) && stripos($docBlock->getContents(), '@ORM') !== false) {
             return false;
-            // throw new \Exception('Annotations', 1337);
         }
         if (stripos($body, '@ORM') !== false) {
             return false;
-            // throw new \Exception('Annotations', 1337);
         }
-
-        // if ($docBlock !== false && stripos($docBlock->getContents(), '@Gedmo') !== false) {
-        // throw new \Exception('Annotations', 1337);
-        // }
-        // if (stripos($body, '@Gedmo') !== false) {
-        // throw new \Exception('Annotations', 1337);
-        // }
 
         return true;
     }
