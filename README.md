@@ -12,6 +12,8 @@ No. There are a couple of solutions around, but all of them are having some prob
 ## Example
 
 ### Generate
+Just execute the part of your application you want to cache.
+Dont do this in your normal process - warm up your cache with a cronjob or similar
 ```php
 // composer autoloading
 require 'vendor/autoload.php';
