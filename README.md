@@ -2,7 +2,7 @@
 Load PHP classes faster...some thoughts from my mind
 
 First build test
-
+11
 ## What is the idea?
 Since the required amount of loaded classes gets larger and larger, the autoloading part takes more and more time...
 Currently there are a lot of optimizations already around for autoloading. See https://github.com/ThaDafinser/SpeedLoader#references
