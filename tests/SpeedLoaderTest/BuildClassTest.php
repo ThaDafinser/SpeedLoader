@@ -21,13 +21,12 @@ class BuildClassTest extends PHPUnit_Framework_TestCase
 
     private function getClassReflection($name)
     {
-        $classRef = $this->getMockBuilder('Zend\Code\Reflection\ClassReflection')
-            ->setConstructorArgs([
+        $classRef = $this->getMockBuilder('Zend\Code\Reflection\ClassReflection');
+        $classRef->setConstructorArgs([
             $name,
-        ])
-            ->getMock();
+        ]);
 
-        return $classRef;
+        return $classRef->getMock();
     }
 
     /**
