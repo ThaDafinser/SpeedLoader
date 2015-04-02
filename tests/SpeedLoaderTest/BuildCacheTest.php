@@ -90,8 +90,6 @@ class BuildCacheTest extends PHPUnit_Framework_TestCase
             'SpeedLoaderTestAsset\Simple\AbstractClass',
         ]);
 
-        $actual = $buildCache->getCachedString();
-
         $this->assertCount(2, $buildCache->getBuildClasses());
 
         $buildClasses = $buildCache->getBuildClasses();

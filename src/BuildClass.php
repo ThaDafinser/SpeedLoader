@@ -272,9 +272,6 @@ class BuildClass
     {
         $class = $this->getClass();
 
-        $body     = $this->getBody();
-        $docBlock = $class->getDocBlock();
-
         $string = '';
         $string .= 'namespace ' . $class->getNamespaceName() . ' ';
         $string .= '{' . $this->getNewLine();
