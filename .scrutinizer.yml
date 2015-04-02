@@ -4,7 +4,7 @@ before_commands:
 filter:
     paths:
         - src/*
-        - tests/*
+        - tests/SpeedLoaderTest/*
 
 tools:
     external_code_coverage:
