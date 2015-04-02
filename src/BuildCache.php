@@ -5,15 +5,20 @@ use Zend\Code\Reflection\ClassReflection;
 
 class BuildCache
 {
+
     private $newLine = "\n";
 
-    private $seen = [];
+    private $classes = [];
 
     private $buildClasses = [];
 
+    private $seen = [];
+
+    private $isBuild = false;
+
     /**
      *
-     * @param string $char
+     * @param string $char            
      */
     public function setNewLine($char = "\n")
     {
@@ -31,24 +36,44 @@ class BuildCache
 
     /**
      *
+     * @param array $classes            
+     */
+    public function setClasses(array $classes)
+    {
+        $this->classes = $classes;
+        
+        $this->isBuild = false;
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function getClasses()
+    {
+        return $this->classes;
+    }
+
+    /**
+     *
      * @return ClassReflection[]
      */
-    private function getOrdererClasses(array $classes)
+    private function getOrdererClasses()
     {
         $this->seen = [];
-
+        
         $map = [];
-        foreach ($classes as $class) {
+        foreach ($this->getClasses() as $class) {
             $reflectionClass = new ClassReflection($class);
-            $map             = array_merge($map, $this->getClassHierarchy($reflectionClass));
+            $map = array_merge($map, $this->getClassHierarchy($reflectionClass));
         }
-
+        
         return $map;
     }
 
     /**
      *
-     * @param  ClassReflection   $class
+     * @param ClassReflection $class            
      * @return ClassReflection[]
      */
     private function getClassHierarchy(ClassReflection $class)
@@ -56,18 +81,18 @@ class BuildCache
         if (in_array($class->getName(), $this->seen)) {
             return [];
         }
-
+        
         $this->seen[] = $class->getName();
-
+        
         $classes = [
-            $class,
+            $class
         ];
         $parent = $class;
         while (($parent = $parent->getParentClass()) && $parent->isUserDefined() && ! in_array($parent->getName(), $this->seen)) {
             $this->seen[] = $parent->getName();
             array_unshift($classes, $parent);
         }
-
+        
         // $traits = array();
         // foreach ($classes as $c) {
         // foreach (self::resolveDependencies(self::computeTraitDeps($c), $c) as $trait) {
@@ -76,13 +101,13 @@ class BuildCache
         // }
         // }
         // }
-
+        
         return array_merge($this->getInterfaces($class), $classes);
     }
 
     /**
      *
-     * @param  ClassReflection   $class
+     * @param ClassReflection $class            
      * @return ClassReflection[]
      */
     private function getInterfaces(ClassReflection $class)
@@ -91,38 +116,49 @@ class BuildCache
         foreach ($class->getInterfaces() as $interface) {
             $classes = array_merge($classes, $this->getInterfaces($interface));
         }
-
+        
         if ($class->isUserDefined() && $class->isInterface() && ! in_array($class->getName(), $this->seen)) {
             $this->seen[] = $class->getName();
-            $classes[]    = $class;
+            $classes[] = $class;
         }
-
+        
         return $classes;
     }
 
     /**
-     * Concat the given classes
-     *
-     * @param array $classes
+     * Prepare the class array with the buildClasses
      */
-    public function cache(array $classes)
+    private function setBuildClasses()
     {
-        foreach ($this->getOrdererClasses($classes) as $class) {
+        if ($this->isBuild === true) {
+            return;
+        }
+        
+        if (count($this->getClasses()) === 0) {
+            throw new \Exception('No classes defined, please call setCLasses()');
+        }
+        
+        $this->buildClasses = [];
+        foreach ($this->getOrdererClasses() as $class) {
             $build = new BuildClass();
             $build->setClass($class);
-
+            
             if ($build->canBeCached() === true) {
                 $this->buildClasses[$class->getName()] = $build;
             }
         }
+        
+        $this->isBuild = true;
     }
 
     /**
      *
      * @return BuildClass[]
      */
-    private function getClasses()
+    public function getBuildClasses()
     {
+        $this->setBuildClasses();
+        
         return $this->buildClasses;
     }
 
@@ -131,36 +167,29 @@ class BuildCache
      *
      * @return string
      */
-    public function getCacheString()
+    public function getCachedString()
     {
+        $this->setBuildClasses();
+        
         $concat = '// @generatedBy ThaDafinser/SpeedLoader' . "\n";
         $concat .= '// @date ' . date('Y-m-d H:i:s') . "\n";
-        $concat .= '// @count: ' . $this->getClassCacheCount() . "\n";
-
+        $concat .= '// @count: ' . count($this->getBuildClasses()) . "\n";
+        
         $currentType = null;
-        foreach ($this->getClasses() as $class) {
+        foreach ($this->getBuildClasses() as $class) {
             if ($currentType != $class->getClassType()) {
                 $concat .= "\n" . '/**********************' . "\n";
                 $concat .= ' * ' . $class->getClassType() . 's' . "\n";
                 $concat .= ' **********************/' . "\n";
-
+                
                 $currentType = $class->getClassType();
             }
-
+            
             $class->setCompressionLevel(BuildClass::COMPRESS_HIGH);
-
+            
             $concat .= $class->getResult() . $class->getNewLine();
         }
-
+        
         return $concat;
-    }
-
-    /**
-     *
-     * @return integer
-     */
-    public function getClassCacheCount()
-    {
-        return count($this->buildClasses);
     }
 }
