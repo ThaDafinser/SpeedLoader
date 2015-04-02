@@ -20,9 +20,8 @@ before_script:
   - composer update --prefer-dist
   
 script:
-  - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then PHPUNIT_FLAGS="--coverage-clover=coverage.clover"; else PHPUNIT_FLAGS=""; fi
   - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then PHP_CS_FIXER_FLAGS="fix -v --dry-run --diff --config-file=.php_cs"; else PHP_CS_FIXER_FLAGS="help"; fi  
-  - vendor/bin/phpunit ${PHPUNIT_FLAGS}
+  - vendor/bin/phpunit --coverage-clover=coverage.clover
   - vendor/bin/php-cs-fixer ${PHP_CS_FIXER_FLAGS}
 
 after_script:
