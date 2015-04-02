@@ -4,18 +4,25 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/?branch=master)
 
-Since autoloading takes more and more time, it has become more important to lower that time.
-`SpeedLoader` aims to solve that problem easily.
+Since autoloading takes more and more time, it has become very important to have an efficient autoloading.
+`SpeedLoader` aims to improve your autoloading experience
 
 ## Is this something new?
 
-No. There are a couple of solutions around, but all of them are having some problems, that's why i "reinvited the wheel".
+No it's nothing completely new. 
+There are a couple of solutions around, but all of them are having some problems, that's why i "reinvited the wheel".
 
 ## Features
 
-- independent (no framework relation)
+- independent
+  - can be used with all packages or frameworks around
+  - or only with your code
 - different compression modes
-- save where and how you want (you get the complete cache as a string)
+  - compression for production
+  - normal for development
+- save the cache how you want
+  - you get the complete cache as a string
+  - e.g. save it as a file or memory
 
 ## Example
 
