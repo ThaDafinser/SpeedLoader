@@ -45,12 +45,12 @@ $classes = array_diff($classes, $classesNoLoad);
 
 //cache it
 $cache = new SpeedLoader\BuildCache();
-$cache->cache($classes);
+$cache->setClasses($classes);
 
-file_put_contents('data/cache/classes.php.cache', '<?php ' . "\n" . $cache->getCacheString());
+file_put_contents('data/cache/classes.php.cache', '<?php ' . "\n" . $cache->getCachedString());
 ```
 
-### Include in your application
+### Include the file in your final application
 ```php
 if (file_exists('data/cache/classes.php.cache')) {
     require_once 'data/cache/classes.php.cache';
