@@ -92,15 +92,6 @@ class BuildCache
             array_unshift($classes, $parent);
         }
 
-        // $traits = array();
-        // foreach ($classes as $c) {
-        // foreach (self::resolveDependencies(self::computeTraitDeps($c), $c) as $trait) {
-        // if ($trait !== $c) {
-        // $traits[] = $trait;
-        // }
-        // }
-        // }
-
         return array_merge($this->getInterfaces($class), $classes);
     }
 

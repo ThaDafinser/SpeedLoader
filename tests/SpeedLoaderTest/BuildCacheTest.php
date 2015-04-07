@@ -90,10 +90,11 @@ class BuildCacheTest extends PHPUnit_Framework_TestCase
             'SpeedLoaderTestAsset\Simple\AbstractClass',
         ]);
 
-        $this->assertCount(2, $buildCache->getBuildClasses());
-
         $buildClasses = $buildCache->getBuildClasses();
 
+        $this->assertCount(2, $buildClasses);
+
+        //Abstract must be loaded before the final class, since its the parent of the final
         $firstClass = array_shift($buildClasses);
         $this->assertEquals($firstClass->getClass()
             ->getName(), 'SpeedLoaderTestAsset\Simple\AbstractClass');
@@ -101,5 +102,39 @@ class BuildCacheTest extends PHPUnit_Framework_TestCase
         $secondClass = array_shift($buildClasses);
         $this->assertEquals($secondClass->getClass()
             ->getName(), 'SpeedLoaderTestAsset\Simple\FinalClass');
+    }
+
+    public function testClassBuildOrderComplex()
+    {
+        $buildCache = new BuildCache();
+
+        $buildCache->setClasses([
+            'SpeedLoaderTestAsset\Complex\Application',
+        ]);
+
+        $buildClasses = $buildCache->getBuildClasses();
+
+        //currently traits are not getting cached
+        $this->assertCount(5, $buildClasses);
+
+        $class = array_shift($buildClasses);
+        $this->assertEquals($class->getClass()
+            ->getName(), 'SpeedLoaderTestAsset\Complex\Vendor1\LoggingInterface');
+
+        $class = array_shift($buildClasses);
+        $this->assertEquals($class->getClass()
+            ->getName(), 'SpeedLoaderTestAsset\Complex\Vendor2\VendorLoggingInterface');
+
+        $class = array_shift($buildClasses);
+        $this->assertEquals($class->getClass()
+            ->getName(), 'SpeedLoaderTestAsset\Complex\Vendor2\AbstractApplication');
+
+        $class = array_shift($buildClasses);
+        $this->assertEquals($class->getClass()
+            ->getName(), 'SpeedLoaderTestAsset\Complex\Vendor2\Application');
+
+        $class = array_shift($buildClasses);
+        $this->assertEquals($class->getClass()
+            ->getName(), 'SpeedLoaderTestAsset\Complex\Application');
     }
 }

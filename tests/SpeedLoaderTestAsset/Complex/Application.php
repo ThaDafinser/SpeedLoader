@@ -1,6 +1,8 @@
 <?php
 namespace SpeedLoaderTestAsset\Complex;
 
-class Application
+use SpeedLoaderTestAsset\Complex\Vendor2\Application as Vendor2Application;
+
+class Application extends Vendor2Application
 {
 }
