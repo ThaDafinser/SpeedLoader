@@ -61,7 +61,7 @@ class BuildClass
      *
      * @param integer $lvl
      */
-    public function setCompressionLevel($lvl = self::COMPRESS_LOW)
+    public function setCompressionLevel($lvl = self::COMPRESS_NONE)
     {
         $this->compressionLevel = $lvl;
     }

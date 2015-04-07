@@ -7,6 +7,8 @@ class BuildCache
 {
     private $newLine = "\n";
 
+    private $compressionLevel = BuildClass::COMPRESS_NONE;
+
     private $classes = [];
 
     private $buildClasses = [];
@@ -31,6 +33,20 @@ class BuildCache
     public function getNewLine()
     {
         return $this->newLine;
+    }
+
+    /**
+     *
+     * @param integer $lvl
+     */
+    public function setCompressionLevel($lvl = BuildClass::COMPRESS_NONE)
+    {
+        $this->compressionLevel = $lvl;
+    }
+
+    public function getCompressionLevel()
+    {
+        return $this->compressionLevel;
     }
 
     /**
@@ -175,6 +191,7 @@ class BuildCache
                 $currentType = $class->getClassType();
             }
 
+            $class->setNewLine($this->getNewLine());
             $class->setCompressionLevel(BuildClass::COMPRESS_HIGH);
 
             $concat .= $class->getResult() . $class->getNewLine();

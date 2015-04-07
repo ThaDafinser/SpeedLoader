@@ -46,6 +46,8 @@ $classes = array_diff($classes, $classesNoLoad);
 //cache it
 $cache = new SpeedLoader\BuildCache();
 $cache->setClasses($classes);
+//$cache->setNewLine("\n");
+//$cache->setCompressionLevel(SpeedLoader\BuildClass::COMPRESS_HIGH);
 
 file_put_contents('data/cache/classes.php.cache', '<?php ' . "\n" . $cache->getCachedString());
 ```

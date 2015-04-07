@@ -3,6 +3,7 @@ namespace SpeedLoaderTest;
 
 use PHPUnit_Framework_TestCase;
 use SpeedLoader\BuildCache;
+use SpeedLoader\BuildClass;
 
 /**
  * @covers \SpeedLoader\BuildCache
@@ -17,6 +18,16 @@ class BuildCacheTest extends PHPUnit_Framework_TestCase
 
         $buildCache->setNewLine("\r\n");
         $this->assertEquals("\r\n", $buildCache->getNewLine());
+    }
+
+    public function testSetGetCompressionLevel()
+    {
+        $buildCache = new BuildCache();
+
+        $this->assertEquals(BuildClass::COMPRESS_NONE, $buildCache->getCompressionLevel());
+
+        $buildCache->setCompressionLevel(BuildClass::COMPRESS_HIGH);
+        $this->assertEquals(BuildClass::COMPRESS_HIGH, $buildCache->getCompressionLevel());
     }
 
     public function testSetGetClasses()
