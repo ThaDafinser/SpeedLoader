@@ -4,8 +4,47 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ThaDafinser/SpeedLoader/?branch=master)
 
+One file to load all your needed classes at once!
 Since autoloading takes more and more time, it has become very important to have an efficient autoloading.
 `SpeedLoader` aims to improve your autoloading experience
+
+## Install
+Get it with composer:
+```
+composer require thadafinser/speed-loader
+```
+
+### Create a seperate file
+```php
+// composer autoloading
+require 'vendor/autoload.php';
+
+//since composer is always needed, exclude all classes loaded until here
+$classesNoLoad = array_merge(get_declared_interfaces(), get_declared_traits(), get_declared_classes());
+
+//execute your app part you want to cache
+$app = MyApplication::init();
+
+//find all loaded files until here
+$classes = array_merge(get_declared_interfaces(), get_declared_traits(), get_declared_classes());
+//remove the classes loaded by composer
+$classes = array_diff($classes, $classesNoLoad);
+
+//cache it now
+$cache = new SpeedLoader\BuildCache();
+$cache->setClasses($classes);
+//$cache->setNewLine("\n");
+//$cache->setCompressionLevel(SpeedLoader\BuildClass::COMPRESS_HIGH);
+
+file_put_contents('data/cache/classes.php.cache', '<?php ' . "\n" . $cache->getCachedString());
+```
+
+### Add the cache to your application
+```php
+if (file_exists('data/cache/classes.php.cache')) {
+    require_once 'data/cache/classes.php.cache';
+}
+```
 
 ## Is this something new?
 
